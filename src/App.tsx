@@ -1,8 +1,9 @@
+import { addDoc, collection } from 'firebase/firestore'
 import { getToken } from 'firebase/messaging'
 import { useEffect, useState } from 'react'
 import './App.css'
 import reactLogo from './assets/react.svg'
-import { messaging } from './firebaseConfig'
+import { fireStore, messaging } from './firebaseConfig'
 import viteLogo from '/vite.svg'
 
 function App() {
@@ -20,7 +21,24 @@ function App() {
             vapidKey: 'BMbiMHhWWpWzXIIfnPSvQkl5v_SDWJhTau4aucu7EIg7a_W7GKgQYCTIo7v9U6XYM8Tnmvl5jKuKNqQGIPUO8Uk'
           })
             .then(async (token) => {
-              alert(`token: ${token}`)
+              const oldToken = localStorage.getItem('fcm_token')
+
+              if (oldToken === token) {
+                return
+              }
+
+              await addDoc(collection(fireStore, 'tokens'), {
+                token,
+                target: 'ANDROID'
+              })
+                .then(() => {
+                  console.log('Token added', token)
+                  localStorage.setItem('fcm_token', token)
+                })
+                .catch((error) => {
+                  console.log('Error adding token: ', error)
+                  localStorage.removeItem('fcm_token')
+                })
             })
             .catch((error) => {
               alert(`error: ${error}`)
