@@ -13,7 +13,7 @@ function App() {
       await Notification.requestPermission().then(async (permission) => {
         if (permission === 'granted') {
           return await getToken(messaging!, {
-            vapidKey: process.env.FCM_VAPID_KEY
+            vapidKey: 'BMbiMHhWWpWzXIIfnPSvQkl5v_SDWJhTau4aucu7EIg7a_W7GKgQYCTIo7v9U6XYM8Tnmvl5jKuKNqQGIPUO8Uk'
           })
             .then(async (token) => {
               alert(`token: ${token}`)
