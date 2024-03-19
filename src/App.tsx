@@ -15,6 +15,7 @@ function App() {
 
     const requestPermission = async () => {
       try {
+        alert(`Notification.permission: ${Notification?.permission}`)
         await Notification.requestPermission().then(async (permission) => {
           if (permission === 'granted') {
             return await getToken(messaging!, {
@@ -68,7 +69,6 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <h2>{token}</h2>
-      <h2>{Notification?.permission}</h2>
       <div className='card'>
         <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
         <p>
