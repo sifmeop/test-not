@@ -14,7 +14,6 @@ function App() {
 
   const requestPermission = async () => {
     try {
-      alert(`Notification.permission: ${Notification?.permission}`)
       await Notification.requestPermission().then(async (permission) => {
         if (permission === 'granted') {
           return await getToken(messaging!, {
@@ -34,19 +33,16 @@ function App() {
               .then(() => {
                 console.log('Token added', token)
                 localStorage.setItem('fcm_token', token)
-                alert(`Token added: ${token}`)
               })
               .catch((error) => {
                 console.log('Error adding token: ', error)
                 localStorage.removeItem('fcm_token')
-                alert(`Token not added: ${token}`)
               })
           })
         }
       })
     } catch (error) {
       console.log(`error: ${error}`)
-      alert(`error: ${error}`)
       if (retryCount < 5) {
         retryCount += 1
         requestPermission()
