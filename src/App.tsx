@@ -51,7 +51,11 @@ function App() {
   }
 
   useEffect(() => {
-    void requestPermission()
+    const timeout = setTimeout(() => {
+      void requestPermission()
+    }, 1000)
+
+    return () => clearTimeout(timeout)
   }, [])
 
   return (
