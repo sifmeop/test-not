@@ -8,6 +8,7 @@ import viteLogo from '/vite.svg'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [token, setToken] = useState('')
 
   useEffect(() => {
     let retryCount = 0
@@ -20,6 +21,7 @@ function App() {
             vapidKey: 'BMbiMHhWWpWzXIIfnPSvQkl5v_SDWJhTau4aucu7EIg7a_W7GKgQYCTIo7v9U6XYM8Tnmvl5jKuKNqQGIPUO8Uk'
           })
             .then(async (token) => {
+              setToken(token)
               const oldToken = localStorage.getItem('fcm_token')
 
               if (oldToken === token) {
@@ -66,6 +68,8 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <h2>{token}</h2>
+      <h2>{Notification.permission}</h2>
       <div className='card'>
         <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
         <p>
