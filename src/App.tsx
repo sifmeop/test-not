@@ -10,8 +10,10 @@ function App() {
 
   useEffect(() => {
     const requestPermission = async () => {
+      alert(Notification.permission)
       await Notification.requestPermission().then(async (permission) => {
         if (permission === 'granted') {
+          console.log(messaging, 'messaging')
           return await getToken(messaging!, {
             vapidKey: 'BMbiMHhWWpWzXIIfnPSvQkl5v_SDWJhTau4aucu7EIg7a_W7GKgQYCTIo7v9U6XYM8Tnmvl5jKuKNqQGIPUO8Uk'
           })
