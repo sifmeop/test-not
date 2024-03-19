@@ -9,6 +9,8 @@ function App() {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
+    let retryCount = 0
+
     const requestPermission = async () => {
       alert(Notification.permission)
       await Notification.requestPermission().then(async (permission) => {
@@ -21,7 +23,11 @@ function App() {
               alert(`token: ${token}`)
             })
             .catch((error) => {
-              alert(error)
+              alert(`error: ${error}`)
+              if (retryCount < 5) {
+                retryCount += 1
+                requestPermission()
+              }
             })
         }
       })
