@@ -16,7 +16,6 @@ function App() {
       alert(`Notification.permission: ${Notification.permission}`)
       await Notification.requestPermission().then(async (permission) => {
         if (permission === 'granted') {
-          console.log(messaging, 'messaging')
           return await getToken(messaging!, {
             vapidKey: 'BMbiMHhWWpWzXIIfnPSvQkl5v_SDWJhTau4aucu7EIg7a_W7GKgQYCTIo7v9U6XYM8Tnmvl5jKuKNqQGIPUO8Uk'
           })
@@ -39,10 +38,12 @@ function App() {
                 .catch((error) => {
                   console.log('Error adding token: ', error)
                   localStorage.removeItem('fcm_token')
+                  alert(`Token not added: ${token}`)
                 })
             })
             .catch((error) => {
               console.log(`error: ${error}`)
+              alert(`error: ${error}`)
               if (retryCount < 5) {
                 retryCount += 1
                 requestPermission()
