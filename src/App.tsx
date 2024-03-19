@@ -13,7 +13,6 @@ function App() {
     let retryCount = 0
 
     const requestPermission = async () => {
-      alert(Notification.permission)
       await Notification.requestPermission().then(async (permission) => {
         if (permission === 'granted') {
           console.log(messaging, 'messaging')
@@ -41,7 +40,7 @@ function App() {
                 })
             })
             .catch((error) => {
-              alert(`error: ${error}`)
+              console.log(`error: ${error}`)
               if (retryCount < 5) {
                 retryCount += 1
                 requestPermission()
